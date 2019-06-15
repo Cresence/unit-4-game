@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>An RPG Game</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+<body>
+    <div class="select-box box">
+        <div class="guideline-text"><span id="sel-area-text"></span></div>
+        <div class="box" id="pick1"><span id="fighter"></span></div>
+        <div id="fight-btn">Attack!</div>        
+        <div class="box" id="pick2"><span id="defender"></span></div>         
+    </div>
+    <hr>
+    <div class="bottom-box box">
+        <button class="btn" id="char1" value="4">Char1</button>
+        <button class="btn" id="char2" value="5">Char2</button>
+        <button class="btn" id="char3" value="6">Char3</button>
+    </div>
+    <emptybox class="if-clicked"></emptybox>
+    
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  
+  <script src="assets/javascript/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+.box {
+    margin-left: 30%;
+}
+.top-box {
+    margin-top: 5%;
+    margin-bottom: 5%; 
+}
+.bottom-box{
+    margin-top: 5%;
+}
+button {
+    margin-left: 30px;
+    height: 200px;
+    width: 200px;
+}
+#fight-btn{
+    margin: auto;
+    height: 50px;
+    width: 50px;
+}
+.ifclicked {
+    height:400px;
+}
