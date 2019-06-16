@@ -1,6 +1,7 @@
 button {
     height: 200px;
     width: 200px;
+    box-shadow: 0 0 2px;
 }
 hr {
     position: fixed;
@@ -15,13 +16,28 @@ hr {
     position: relative;
 }
 .guideline-text {
+    position: absolute;
     font-weight: bolder;
     font-size: 2rem;
-    text-align: center;
+    left: 46%;
     text-decoration: underline;
 }
 .mini-box {
     width: 33%;
+}
+.misc-box {
+    position: absolute;
+    height: 440px;
+    width: 600px;
+    background: black;
+}
+#misc1{
+    bottom: 1%;
+    left: 0.5%;
+}
+#misc2 {
+    bottom: 1%;
+    right: 0.5%;
 }
 .select-box {
     margin-top: 5%;
@@ -31,14 +47,14 @@ hr {
 }
 #fight-btn{
     position: fixed;
-    left: 47.5%;
+    left: 46%;
     top:25%;
     height: 100px;
     width: 100px;
 }
 #reset-btn{
     position: fixed;
-    left: 47.5%;
+    left: 46%;
     bottom:25%;
     height: 100px;
     width: 100px;
@@ -65,7 +81,21 @@ hr {
     width: 250px;
     top: 5%;
     left: 5%;
+    border-style: solid;
+    border-width: 5px;
     background: black;
+}
+#defender {
+    position: absolute;
+    height: 490px;
+    width: 500px;
+    top: -75px;
+    left: -115px;
+    border-style: solid;
+    border-width: 5px;
+    background: black;
+    z-index: 1;
+    opacity: 0;
 }
 #pick2 {
     position: fixed;
@@ -73,6 +103,19 @@ hr {
     width: 250px;
     top: 5%;
     right: 5%;
+    border-style: solid;
+    border-width: 5px;
     background: black;
 }
-
+#fighter {
+    position: absolute;
+    height: 490px;
+    width: 500px;
+    top: -75px;
+    right: -115px;
+    border-style: solid;
+    border-width: 5px;
+    background: black;
+    z-index: 1;
+    opacity: 0;
+}
