@@ -1,23 +1,78 @@
-.box {
-    margin-left: 30%;
+button {
+    height: 200px;
+    width: 200px;
 }
-.top-box {
-    margin-top: 5%;
-    margin-bottom: 5%; 
+hr {
+    position: fixed;
+    top: 50%;
+    width: 100%;
 }
 .bottom-box{
     margin-top: 5%;
 }
-button {
-    margin-left: 30px;
-    height: 200px;
-    width: 200px;
+.box {
+    width: 100%;
+    position: relative;
+}
+.guideline-text {
+    font-weight: bolder;
+    font-size: 2rem;
+    text-align: center;
+    text-decoration: underline;
+}
+.mini-box {
+    width: 33%;
+}
+.select-box {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
+    height: 145px; 
 }
 #fight-btn{
+    position: fixed;
+    left: 47.5%;
+    top:25%;
+    height: 100px;
+    width: 100px;
+}
+#reset-btn{
+    position: fixed;
+    left: 47.5%;
+    bottom:25%;
+    height: 100px;
+    width: 100px;
+}
+#char1{
+    position: fixed;
+    bottom: 5%;
+    left: 5%;
+}
+#char2{
+    position: fixed;
+    bottom: 5%;
+    left: 45%;
     margin: auto;
-    height: 50px;
-    width: 50px;
 }
-.ifclicked {
-    height:400px;
+#char3{
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
 }
+#pick1 {
+    position: fixed;
+    height: 371px;
+    width: 250px;
+    top: 5%;
+    left: 5%;
+    background: black;
+}
+#pick2 {
+    position: fixed;
+    height: 371px;
+    width: 250px;
+    top: 5%;
+    right: 5%;
+    background: black;
+}
+

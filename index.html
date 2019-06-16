@@ -12,8 +12,9 @@
 <body>
     <div class="select-box box">
         <div class="guideline-text"><span id="sel-area-text"></span></div>
-        <div class="box" id="pick1"><span id="fighter"></span></div>     
-        <div class="box" id="pick2"><span id="defender"></span></div>         
+        <div class="box mini-box" id="pick1"><span id="fighter"></span></div>
+        <button id="fight-btn">Battle!</button>     
+        <div class="box mini-box" id="pick2"><span id="defender"></span></div>         
     </div>
     <hr>
     <div class="bottom-box box">
@@ -21,7 +22,10 @@
         <button class="btn" id="char2" value="2">Char2</button>
         <button class="btn" id="char3" value="3">Char3</button>
     </div>
-    <emptybox class="if-clicked"></emptybox>
+    <div class="misc-box">
+        <button id="reset-btn">Reset Game?</button>
+        
+    </div>
     
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
