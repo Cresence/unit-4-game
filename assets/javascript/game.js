@@ -6,6 +6,7 @@ $(document).ready(function(){
     var stats = $('.misc-box');
     var fightButton = $('#fight-btn');
     var resetButton = $('#reset-btn');
+    var statTextBox = $('.status-box');
     // Characters defined w/ statistics as properties
     var char = {
         "Char1": {
@@ -39,7 +40,7 @@ $(document).ready(function(){
     var avatarA = $('#fighter');
     var avatarB = $('#defender');
     // Character Selection Guidelines
-    var selection = false;
+    selection = false;
     var cpuChoice = 0;
     var cpuPick = [];
     var usrPick = [];
@@ -48,13 +49,10 @@ $(document).ready(function(){
     resetButton.hide();
     battleArea.hide();
     stats.hide();
+    statTextBox.hide();
     $('#sel-area-text').text('Choose Your Character');
     // Phase 2 (Battle Stage)
     function gameStart(){
-    $('#reset.btn').click(function() {
-            location.reload();
-            console.log('This does something.');
-    });
     $('.btn').on('click', function() {
         var usrChoice = this.value;
         // I'm still surprised that this took a long time to figure out, and that it even worked!
@@ -65,13 +63,11 @@ $(document).ready(function(){
         }else {
             usrChoice = char.Char2;
         }
-        
         // End of previous contextual statement above referring to in-between code.
         $('#sel-area-text').text('Begin!');
         fightButton.show();
         resetButton.show();
         battleArea.show();
-        stats.show();
         usrArea.hide();
         selection = true;
         charImage = $("<img alt='image' id='pick1'>").attr("src", usrChoice.imageUrl);
@@ -99,46 +95,68 @@ $(document).ready(function(){
         // CPU auto selects from character pool
         function getMyEnemy() {
         randomNumber = Math.floor((Math.random() * 3) + 1);
+        // console.log('Enemy Selection Value: ' + randomNumber);
         if (randomNumber < 2){
             cpuChoice = char.Char1;
-        }else if (cpuChoice > 2) {
+        }else if (randomNumber > 2) {
             cpuChoice = char.Char3;
         }else {
             cpuChoice = char.Char2;
         }
         return cpuChoice;
         };
+        resetButton.on('click', function() {
+            console.log('This does something.');
+            location.reload();
+        });
         // Where the battle functions are called conditionally
         $('#fight-btn').on('click', function() {
+            // Stats generated
+            stats.show();
+            // statTextBox.show();
             // Updates Stats
             statFooter();
             // You attack starting the battle process
             // If missed, starts counter attack process
-            setTimeout(atkProc, 3000);
+            setTimeout(atkProc, 1500);
             // Update stats
-            statFooter();
+            setTimeout(statFooter, 2250);
+            setTimeout(checkEndGame, 2300);
             // CPU attacks back.
             // Same but usr w/ prerogative, starts counter attack process
-            setTimeout(cpuAtkProc, 5000);
+            setTimeout(cpuAtkProc, 3500);
             // Update stats
+            setTimeout(statFooter, 4250);
+            setTimeout(checkEndGame, 4300);
+            // One more for good measure, stat update
             statFooter();
-            // End Game
+            $('#sel-area-text').text('Stand-By');
+        });
+        function checkEndGame(){
             if (cpuPick[0].health < 1 || usrPick[0].health < 1) {
                 // alert("And That's All Folks!");
                 $('#fight-btn').off('click');
                 // Final stat update
                 statFooter();
-            };
-            // One more for good measure, stat update
-            statFooter();
-        });
+                $('.guideline-text').text('Battle Over!');
+                return false;
+                };
+        };
         function atkProc() {
+            $('#sel-area-text').text('Attacking!');
+            var bPhaseDec = $('<p></p>').text('Battle Process Starts!');
+            var separator = $('<hr>').text();
+            var atkPhaseDec = $('<p></p>').text('Atk Phase');
             console.log('Battle Process Starts!');
             console.log('----------');
             console.log('Atk Phase');
             console.log('----------');
             // alert('You Attack!');
             randomNumber = Math.floor((Math.random() * 100) + 1);
+            var hitChanceDec = $('<p></p>').text('Your Hitchance roll: ' + randomNumber);
+            var goodAtkDec = $('<p></p>').text('Your Attack was Successful!');
+            var badAtkDec = $('<p></p>').text('Your attack missed!');
+            var atkPhaseEnd = $('<p></p>').text('End of Atk Phase');
             console.log('Your Hitchance roll: ' + randomNumber);
             if (randomNumber === (usrPick[0].hitchance * 100) || randomNumber > (usrPick[0].hitchance * 100)) {
             cpuPick[0].health -= usrPick[0].atk;
@@ -153,11 +171,11 @@ $(document).ready(function(){
             console.log('End of Atk Phase');
             console.log('----------');
             // Starts counter attack process if missed
-            setTimeout(cpuRevProc, 3500);
-
+            setTimeout(cpuRevProc, 2400);
             }            
         };
         function cpuAtkProc() {
+            $('#sel-area-text').text('Defending');
             console.log('Def Phase');
             console.log('----------');
             // alert('Enemy Attacks!');
@@ -167,21 +185,21 @@ $(document).ready(function(){
             usrPick[0].health -= cpuPick[0].atk;
             // alert(cpuPick[0].class + ' countered'  + ' for: ' + cpuPick[0].revAtk);
             console.log('Enemy Attack was Sucessful!');
-            console.log('Their HP: '+ cpuPick[0].health);
+            console.log('Your HP: '+ usrPick[0].health);
             console.log('End of Def Phase');
             console.log('----------');
             }else {
             // alert('Enemy missed!');
             console.log('Enemy Attack missed!')
             console.log('End of Def Phase');
-            console.log('----------'); 
-            setTimeout(usrRevProc, 5500);
-            console.log('Battle Process Ended!');
             console.log('----------');
+            // Starts usr counter attack if enemy missed
+            setTimeout(usrRevProc, 4500);
             }
         };
         function cpuRevProc() {
-            console.log('Counter Def Phase');
+            $('#sel-area-text').text('Counter Defense!');
+            console.log('Counter Def Chance!');
             console.log('----------');
             // alert('Enemy Counter Attacked!');
             randomNumber = Math.floor((Math.random() * 100) + 1);
@@ -191,17 +209,24 @@ $(document).ready(function(){
             // alert(cpuPick[0].class + ' countered'  + ' for: ' + cpuPick[0].revAtk);
             console.log('Enemy Counter Attack was Successful!');
             console.log('Your HP: ' + usrPick[0].health);
-            console.log('End of Enemy Counter Phase');
-            console.log('----------');
+            $('#sel-area-text').text('Stand-By');
+            checkEndGame();
             }else {
                 // alert('Enemy Counter Attack missed!');
-                console.log('Enemy Counter missed!');
-                console.log('End of Counter Def Phase');
+                console.log('Enemy Counter Attack missed!');
+                console.log('End of Counter Def Chance!');
                 console.log('----------');                
+            };
+            if (checkEndGame = false) {
+            console.log('Dying Chance Enemy Atk!');
+            console.log('End of Counter Def Chance');
+            console.log('----------');
             }
+            // checkEndGame();
         };
         function usrRevProc() {
-            console.log('Counter Atk Phase');
+            $('#sel-area-text').text('Counter Attack!');
+            console.log('Counter Atk Chance!');
             console.log('----------');
             // alert('You Counter Attacked!');
             randomNumber = Math.floor((Math.random() * 100) + 1);
@@ -210,20 +235,24 @@ $(document).ready(function(){
             cpuPick[0].health -= usrPick[0].revAtk;
             // alert('You countered ' + cpuPick[0].class  + ' for: ' + usrPick[0].revAtk);
             console.log('Your Counter Attack was Successful!');
-            console.log('End of Counter Atk Phase');
-            console.log('----------');
+            console.log('Their HP: ' + cpuPick[0].health);
+            checkEndGame();
+            console.log('End of Counter Atk Chance!');
             console.log('Battle Process Ended!');
             console.log('----------');
-            console.log('Their HP: ' + cpuPick[0].health);
             }else {
                 // alert('Your Counter Attack missed!');
                 console.log('Your Counter missed!');
-                console.log('End of Counter Atk Phase');
+                console.log('End of Counter Atk Chance');
                 console.log('----------');
                 console.log('Battle Process Ended!');
-                console.log('----------');                
+                console.log('----------');
+                $('#sel-area-text').text('Stand-By');                
             };
-
+            if (checkEndGame = false) {
+                console.log('Dying Chance Atk!');
+            }
+            // checkEndGame();
         };
         function statFooter() {
             yourName = usrPick[0].class;
@@ -240,15 +269,18 @@ $(document).ready(function(){
             if (enemyHP < 1) {
                 $('#misc2').append().text("He's Dead Jim.")
             };
+            if (enemyHP < 0 && yourHP > 0 || enemyHP === 0 && yourHP > 0) {
+                console.log('Victory!'); 
+             } else if (yourHP < 0 && enemyHP === 0 || yourHP === 0 && enemyHP > 0) {
+                 console.log('Defeat!');
+             } else if (yourHP === 0 && enemyHP === 0) {
+                 console.log('No Contest!');
+             }
             // console.log(("You: "+ yourName.charAt(0).toUpperCase() + yourName.slice(1)));
             // console.log("Your Remaining HP: "+ yourHP);
             // console.log("Enemy: "+ enemyName.charAt(0).toUpperCase() + enemyName.slice(1));
             // console.log("Enemy Remaining HP: "+ enemyHP);
         };
-        
-        
-        
     };
-    
     gameStart();
 });

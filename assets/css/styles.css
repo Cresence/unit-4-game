@@ -1,12 +1,26 @@
+html {
+    background: url('../images/bg-image.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
 button {
     height: 200px;
     width: 200px;
     box-shadow: 0 0 2px;
+    background-color: burlywood;
+    outline-style: solid;
+    outline-width: 4px;
 }
 hr {
     position: fixed;
     top: 50%;
     width: 100%;
+    padding: 5px;
+    background-color: black;
+}
+p {
+    font-size: 200%;
 }
 .bottom-box{
     margin-top: 5%;
@@ -19,8 +33,18 @@ hr {
     position: absolute;
     font-weight: bolder;
     font-size: 2rem;
-    left: 46%;
-    text-decoration: underline;
+    text-align: center;
+    left: 41.36%;
+    font-style: italic;
+    padding: 7px;
+    outline-style: solid;
+    outline-width: 4px;
+    box-shadow: 0 0 2px;
+    background-color: burlywood;
+    height: 85px;
+    width: 260px;
+    /* background-image: url('../images/scroll-bg.png');
+    background-size: cover; */
 }
 .mini-box {
     width: 33%;
@@ -32,25 +56,63 @@ hr {
     font-weight: bolder;
     font-size: 2rem;
     overflow-y: hidden;
+    z-index: 1;
+}
+.left-box {
+    box-shadow: 0 0 2px;
+    background-color: burlywood;
+    outline-style: solid;
+    outline-width: 4px;    
+    z-index: 0;
+}
+.right-box {
+    box-shadow: 0 0 2px;
+    background-color: burlywood;
+    outline-style: solid;
+    outline-width: 4px;    
+    z-index: 0;
+}
+.status-box {
+    position: absolute;
+    width: 600px;
+    height: 270px;
+    background-color: white;
+    left: 32%;
+    bottom: 2.5%;
+    padding: 7px;
+    outline-style: solid;
+    outline-width: 4px;
+    box-shadow: 0 0 2px;
+    flex-wrap: wrap;
 }
 #misc1{
-    bottom: 1%;
-    left: 0.5%;
+    bottom: 31%;
+    left: 1%;
+    width: 260px;
+    height: 85px;
     text-align: start;
+    line-height: 40px;
 }
 #misc2 {
-    bottom: 1%;
-    right: 0.5%;
-    text-align: end;
+    bottom: 31%;
+    right: 1%;
+    width: 260px;
+    height: 85px;
+    text-align: end; 
+    line-height: 40px;
 }
 #misc3 {
-    bottom: 25%;
-    left: 0.5%;
+    bottom: 40%;
+    left: 1%;
+    width: 260px;
+    height: 50px;
     text-align: start;
 }
 #misc4 {
-    bottom: 25%;
-    right: 0.5%;
+    bottom: 40%;
+    right: 1%;
+    width: 260px;
+    height: 50px;
     text-align: end;
 }
 .select-box {
@@ -62,32 +124,32 @@ hr {
 #fight-btn{
     position: fixed;
     left: 46%;
-    top:25%;
+    top:38%;
     height: 100px;
     width: 100px;
 }
 #reset-btn{
     position: fixed;
     left: 46%;
-    bottom:25%;
+    bottom:35%;
     height: 100px;
     width: 100px;
 }
 #char1{
     position: fixed;
     bottom: 5%;
-    left: 5%;
+    left: 3%;
 }
 #char2{
     position: fixed;
     bottom: 5%;
-    left: 45%;
+    left: 43.5%;
     margin: auto;
 }
 #char3{
     position: fixed;
     bottom: 5%;
-    right: 5%;
+    right: 3%;
 }
 #pick1 {
     position: fixed;
@@ -132,9 +194,4 @@ hr {
     background: black;
     z-index: 1;
     opacity: 0;
-}
-#bg {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 }
