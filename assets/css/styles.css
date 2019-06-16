@@ -27,17 +27,31 @@ hr {
 }
 .misc-box {
     position: absolute;
-    height: 440px;
+    height: 220px;
     width: 600px;
-    background: black;
+    font-weight: bolder;
+    font-size: 2rem;
+    overflow-y: hidden;
 }
 #misc1{
     bottom: 1%;
     left: 0.5%;
+    text-align: start;
 }
 #misc2 {
     bottom: 1%;
     right: 0.5%;
+    text-align: end;
+}
+#misc3 {
+    bottom: 25%;
+    left: 0.5%;
+    text-align: start;
+}
+#misc4 {
+    bottom: 25%;
+    right: 0.5%;
+    text-align: end;
 }
 .select-box {
     margin-top: 5%;
@@ -118,4 +132,9 @@ hr {
     background: black;
     z-index: 1;
     opacity: 0;
+}
+#bg {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }

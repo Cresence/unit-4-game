@@ -106,35 +106,31 @@ $(document).ready(function(){
         };
         // Where the battle functions are called conditionally
         $('#fight-btn').on('click', function() {
+            statFooter();
             randomNumber = Math.floor((Math.random() * 100) + 1);
             if (randomNumber > 50) {
-                atkProc();
+                atkProc;
                 console.log(randomNumber)
             }else if (randomNumber < 50) {
                 alert('You missed!');
-                cpuRevProc();
+                cpuRevProc;
             }else {
                 alert('You both missed!')
             }
             if (usrPick[0].health--) {
-                usrRevProc();
+                usrRevProc;
             }
+            cpuPick[0].health -= usrPick[0].atk;
+            console.log('Their HP: '+ cpuPick[0].health);
+            alert('You attacked ' + cpuPick[0].class);
             // End Game
             if (cpuPick[0].health < 1 || usrPick[0].health < 1) {
                 alert("And That's All Folks!");
                 $('#fight-btn').off('click');
+                statFooter();
             };
-
-            // cpuPick[0].health -= usrPick[0].atk;
-            // console.log('Their HP: '+ cpuPick[0].health);
-            // alert('You atked ' + cpuPick[0].class);
-            // // End Game
-            // if (cpuPick[0].health < 1 || usrPick[0].health < 1) {
-            //     alert("And That's All Folks!");
-            //     $('#fight-btn').off('click');
-            // };
-            // usrPick[0].health -= cpuPick[0].atk * cpuPick[0].hitchance;
-            // console.log('Your HP: ' + usrPick[0].health);
+            usrPick[0].health -= cpuPick[0].atk * cpuPick[0].hitchance;
+            console.log('Your HP: ' + usrPick[0].health);
         });
         function atkProc() {
             cpuPick[0].health -= usrPick[0].atk;
@@ -153,6 +149,32 @@ $(document).ready(function(){
             console.log('Their HP: ' + cpuPick[0].health);
 
         };
+        function statFooter() {
+            yourName = usrPick[0].class;
+            yourHP = usrPick[0].health;
+            enemyName = cpuPick[0].class;
+            enemyHP = cpuPick[0].health;
+            $('#misc3').text("You: "+ yourName.charAt(0).toUpperCase() + yourName.slice(1));
+            $('#misc1').text("Your Remaining HP: "+ yourHP);
+            if (yourHP < 1) {
+                $('#misc1').append().text("He's Dead Jim.")
+            };
+            $('#misc4').text("Enemy: "+ enemyName.charAt(0).toUpperCase() + enemyName.slice(1));
+            $('#misc2').text("Enemy Remaining HP: "+ enemyHP);
+            if (enemyHP < 1) {
+                $('#misc2').append().text("He's Dead Jim.")
+            };
+            // console.log(("You: "+ yourName.charAt(0).toUpperCase() + yourName.slice(1)));
+            // console.log("Your Remaining HP: "+ yourHP);
+            // console.log("Enemy: "+ enemyName.charAt(0).toUpperCase() + enemyName.slice(1));
+            // console.log("Enemy Remaining HP: "+ enemyHP);
+        };
+        
+        $('#reset.btn').click(function() {
+            location.reload();
+            console.log('This does something.');
+        });
+        
     };
 
     gameStart();
