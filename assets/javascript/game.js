@@ -7,6 +7,7 @@ $(document).ready(function(){
     var fightButton = $('#fight-btn');
     var resetButton = $('#reset-btn');
     var statTextBox = $('.status-box');
+    var statText = $('#battlelog');
     // Characters defined w/ statistics as properties
     var char = {
         "Char1": {
@@ -39,6 +40,11 @@ $(document).ready(function(){
     var selB = $('#pick2');
     var avatarA = $('#fighter');
     var avatarB = $('#defender');
+    // Message shortcuts
+    // var hitChanceDec = $('<p>').text('Your Hitchance roll: ' + randomNumber);
+    // var goodAtkDec = $('<p>').text('Your Attack was Successful!');
+    // var badAtkDec = $('<p>').text('Your attack missed!');
+    // var atkPhaseEnd = $('<p>').text('End of Atk Phase');
     // Character Selection Guidelines
     selection = false;
     var cpuChoice = 0;
@@ -111,9 +117,10 @@ $(document).ready(function(){
         });
         // Where the battle functions are called conditionally
         $('#fight-btn').on('click', function() {
+            statText.text('Battle Process Starts!');
             // Stats generated
             stats.show();
-            // statTextBox.show();
+            statTextBox.show();
             // Updates Stats
             statFooter();
             // You attack starting the battle process
@@ -133,44 +140,53 @@ $(document).ready(function(){
             $('#sel-area-text').text('Stand-By');
         });
         function checkEndGame(){
+            statText.text('Pending...');
             if (cpuPick[0].health < 1 || usrPick[0].health < 1) {
                 // alert("And That's All Folks!");
                 $('#fight-btn').off('click');
                 // Final stat update
                 statFooter();
                 $('.guideline-text').text('Battle Over!');
-                return false;
+                throw new Error;
                 };
         };
         function atkProc() {
             $('#sel-area-text').text('Attacking!');
-            var bPhaseDec = $('<p></p>').text('Battle Process Starts!');
-            var separator = $('<hr>').text();
-            var atkPhaseDec = $('<p></p>').text('Atk Phase');
+            // var bPhaseDec = $('<p></p>').text('Battle Process Starts!');
+            // var separator = $('<hr>').text();
+            // var atkPhaseDec = $('<p></p>').text('Atk Phase');
             console.log('Battle Process Starts!');
             console.log('----------');
             console.log('Atk Phase');
             console.log('----------');
             // alert('You Attack!');
+            statText.text('Atk Phase');
             randomNumber = Math.floor((Math.random() * 100) + 1);
-            var hitChanceDec = $('<p></p>').text('Your Hitchance roll: ' + randomNumber);
-            var goodAtkDec = $('<p></p>').text('Your Attack was Successful!');
-            var badAtkDec = $('<p></p>').text('Your attack missed!');
-            var atkPhaseEnd = $('<p></p>').text('End of Atk Phase');
             console.log('Your Hitchance roll: ' + randomNumber);
             if (randomNumber === (usrPick[0].hitchance * 100) || randomNumber > (usrPick[0].hitchance * 100)) {
             cpuPick[0].health -= usrPick[0].atk;
             // alert('You attacked ' + cpuPick[0].class + ' for: ' + usrPick[0].atk);
+            statText.text('Attack Successful!');
             console.log('Your Attack was Sucessful!');
             console.log('Their HP: '+ cpuPick[0].health);
             console.log('End of Atk Phase');
             console.log('----------');
+            // Attempt at Object -> append. Maybe .after()?
+            // statText.append(hitChanceDec);
+            // statText.append(goodAtkDec);
+            // statText.append(atkPhaseEnd);
             }else {
             // alert('You missed!');
+            statText.text('Attack missed!');
             console.log('Your attack missed!');
             console.log('End of Atk Phase');
             console.log('----------');
+            // Attempt at Object -> append. Maybe .after()?
+            // statText.append(hitChanceDec);
+            // statText.append(badAtkDec);
+            // statText.append(atkPhaseEnd);
             // Starts counter attack process if missed
+            statText.text('End of Atk Phase!');
             setTimeout(cpuRevProc, 2400);
             }            
         };
@@ -179,26 +195,30 @@ $(document).ready(function(){
             console.log('Def Phase');
             console.log('----------');
             // alert('Enemy Attacks!');
+            statText.text('Def Phase!');
             randomNumber = Math.floor((Math.random() * 100) + 1);
             console.log('Enemy Hitchance roll: ' + randomNumber);
             if (randomNumber === (cpuPick[0].hitchance * 100) || randomNumber > (cpuPick[0].hitchance * 100)) {
             usrPick[0].health -= cpuPick[0].atk;
             // alert(cpuPick[0].class + ' countered'  + ' for: ' + cpuPick[0].revAtk);
+            statText.text('Enemy Attack Successful!');
             console.log('Enemy Attack was Sucessful!');
             console.log('Your HP: '+ usrPick[0].health);
             console.log('End of Def Phase');
             console.log('----------');
             }else {
             // alert('Enemy missed!');
+            statText.text('Enemy Attack missed!');
             console.log('Enemy Attack missed!')
             console.log('End of Def Phase');
             console.log('----------');
             // Starts usr counter attack if enemy missed
+            statText.text('End of Def Phase!');
             setTimeout(usrRevProc, 4500);
             }
         };
         function cpuRevProc() {
-            $('#sel-area-text').text('Counter Defense!');
+            $('#sel-area-text').text('Counter Defense Chance!');
             console.log('Counter Def Chance!');
             console.log('----------');
             // alert('Enemy Counter Attacked!');
@@ -209,23 +229,24 @@ $(document).ready(function(){
             // alert(cpuPick[0].class + ' countered'  + ' for: ' + cpuPick[0].revAtk);
             console.log('Enemy Counter Attack was Successful!');
             console.log('Your HP: ' + usrPick[0].health);
-            $('#sel-area-text').text('Stand-By');
+            statText.text('Enemy Counter was Successful!');
             checkEndGame();
             }else {
                 // alert('Enemy Counter Attack missed!');
                 console.log('Enemy Counter Attack missed!');
                 console.log('End of Counter Def Chance!');
-                console.log('----------');                
+                console.log('----------');
+                statText.text('Enemy Counter Attack missed!');               
             };
             if (checkEndGame = false) {
             console.log('Dying Chance Enemy Atk!');
             console.log('End of Counter Def Chance');
             console.log('----------');
             }
-            // checkEndGame();
+            statText.text('End of Counter Def Chance!'); 
         };
         function usrRevProc() {
-            $('#sel-area-text').text('Counter Attack!');
+            $('#sel-area-text').text('Counter Attack Chance!');
             console.log('Counter Atk Chance!');
             console.log('----------');
             // alert('You Counter Attacked!');
@@ -236,6 +257,7 @@ $(document).ready(function(){
             // alert('You countered ' + cpuPick[0].class  + ' for: ' + usrPick[0].revAtk);
             console.log('Your Counter Attack was Successful!');
             console.log('Their HP: ' + cpuPick[0].health);
+            statText.text('Your Counter Attack was Successful!');
             checkEndGame();
             console.log('End of Counter Atk Chance!');
             console.log('Battle Process Ended!');
@@ -247,27 +269,32 @@ $(document).ready(function(){
                 console.log('----------');
                 console.log('Battle Process Ended!');
                 console.log('----------');
-                $('#sel-area-text').text('Stand-By');                
+                statText.text('Your Counter Attack missed!');                
             };
             if (checkEndGame = false) {
                 console.log('Dying Chance Atk!');
             }
-            // checkEndGame();
+            statText.text('End of Counter Attack Chance!');
+            statFooter();
+            $('#sel-area-text').text('Stand-By');
         };
         function statFooter() {
             yourName = usrPick[0].class;
             yourHP = usrPick[0].health;
             enemyName = cpuPick[0].class;
             enemyHP = cpuPick[0].health;
+            statText.text('Pending...')
             $('#misc3').text("You: "+ yourName.charAt(0).toUpperCase() + yourName.slice(1));
             $('#misc1').text("Your Remaining HP: "+ yourHP);
             if (yourHP < 1) {
                 $('#misc1').append().text("He's Dead Jim.")
+                statText.text("Check the console for additional battle details...").after();
             };
             $('#misc4').text("Enemy: "+ enemyName.charAt(0).toUpperCase() + enemyName.slice(1));
             $('#misc2').text("Enemy Remaining HP: "+ enemyHP);
             if (enemyHP < 1) {
-                $('#misc2').append().text("He's Dead Jim.")
+                $('#misc2').append().text("He's Dead Jim.");
+                statText.text("Check the console for additional battle details...").after();
             };
             if (enemyHP < 0 && yourHP > 0 || enemyHP === 0 && yourHP > 0) {
                 console.log('Victory!'); 
@@ -275,6 +302,8 @@ $(document).ready(function(){
                  console.log('Defeat!');
              } else if (yourHP === 0 && enemyHP === 0) {
                  console.log('No Contest!');
+             } else {
+                //  console.log('What happened!?');
              }
             // console.log(("You: "+ yourName.charAt(0).toUpperCase() + yourName.slice(1)));
             // console.log("Your Remaining HP: "+ yourHP);
